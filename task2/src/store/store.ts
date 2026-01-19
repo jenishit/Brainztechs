@@ -12,7 +12,8 @@ export const useMovieStore = create<MovieState>()(
             genres: [],
             isLoading: false,
             searchQuery: '',
-            
+            selectedMovie: null,
+            setSelectedMovie: (Movie) => set({ selectedMovie: Movie }),
             addToFavorites: (movie: Movie) => {
                 set((state) => ({
                     favorites:  [...state.favorites, movie],

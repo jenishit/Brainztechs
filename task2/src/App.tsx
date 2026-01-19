@@ -5,20 +5,23 @@ import {toast } from 'react-toastify';
 import { movieApi } from './services/api';
 import { MovieCard } from './components/MovieCard';
 import { Tabs, TabsList, TabsTrigger, TabsContent} from '@/components/ui/tabs';
-import React from 'react';
+import {useEffect} from 'react';
+import { MovieDetails } from './components/MovieDetails';
 
 export default function App() {
   const {
     movies,
     favorites,
+    watchlist,
     isLoading,
     searchQuery,
+    searchResults,
     setMovies,
     setGenres,
     setLoading,
   } = useMovieStore();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchInitialData = async () => {
       setLoading(true);
       try {
@@ -52,6 +55,9 @@ export default function App() {
             <TabsTrigger value="favorites">
               Favorites ({favorites.length})
             </TabsTrigger>
+            <TabsTrigger value="watchlist">
+              Watchlist ({watchlist.length})
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="discover">
@@ -65,7 +71,7 @@ export default function App() {
                 <h2 className="text-xl font-semibold mb-4">
                   {searchQuery ? `Search Results for "${searchQuery}"` : 'Popular Movies'}
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                   {displayMovies.map((movie) => (
                     <MovieCard key={movie.id} movie={movie} />
                   ))}
@@ -94,8 +100,25 @@ export default function App() {
               </div>
             )}
           </TabsContent>
+
+          <TabsContent value="watchlist">
+            {watchlist.length === 0 ? (
+              <div className="text-center py-20 text-muted-foreground">
+                <Heart className="w-16 h-16 mx-auto mb-4 opacity-20" />
+                <p className="text-lg">No movies in Watchlist yet</p>
+                <p className="text-sm">Start adding movies to your watchlist!</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {favorites.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
       </main>
+      <MovieDetails />
     </div>
   );
 }

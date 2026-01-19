@@ -24,6 +24,7 @@ interface MovieState {
   genres: Genre[];
   isLoading: boolean;
   searchQuery: string;
+  selectedMovie: Movie | null;
   addToFavorites: (movie: Movie) => void;
   removeFromFavorites: (movieId: number) => void;
   addToWatchlist: (movie: Movie) => void;
@@ -35,6 +36,7 @@ interface MovieState {
   setGenres: (genres: Genre[]) => void;
   setLoading: (loading: boolean) => void;
   setSearchQuery: (query: string) => void;
+  setSelectedMovie: (movie: Movie | null) => void;
 }
 
 export type {Movie, Genre, MovieState};

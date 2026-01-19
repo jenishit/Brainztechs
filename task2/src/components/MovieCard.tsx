@@ -5,11 +5,21 @@ import {
     Card, CardContent, 
 } from '@/components/ui/card';
 import { getImageUrl } from '@/services/api';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
-export const MovieCard = ({ movie }: {movie: Movie }) => {
-    const { isFavorite, addToFavorites, removeFromFavorites, isWatched, addToWatchlist, removeFromWatchlist, genres } = useMovieStore();
+export const MovieCard = ({ movie }: { movie: Movie }) => {
+    const { 
+        isFavorite, 
+        addToFavorites, 
+        removeFromFavorites, 
+        isWatched, 
+        addToWatchlist, 
+        removeFromWatchlist, 
+        genres, 
+        setSelectedMovie 
+    } = useMovieStore();
+    
     const isFav = isFavorite(movie.id);
     const isWatch = isWatched(movie.id);
 
@@ -26,17 +36,32 @@ export const MovieCard = ({ movie }: {movie: Movie }) => {
     const movieGenres = genres.filter((g) => movie.genre_ids?.includes(g.id)).slice(0, 2);
 
     return (
-        <Card className='overflow-hidden hover:shadow-lg transition-shadow group'>
+        <Card 
+            className='overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer' 
+            onClick={() => setSelectedMovie(movie)}
+        >
             <div className="relative">
-                <img src={getImageUrl(movie.poster_path)} alt={movie.title} className='w-full h-96 object-cover' />
-                <div className="flex flex-col">
-                    <Button variant="ghost" size="icon" className={`absolute top-2 right-2 ${ isFav ? 'text-red-500' : 'text-white' } bg-black/50 hover:bg-black/70`} 
-                    onClick={handleFavoriteToggle} >
+                <img 
+                    src={getImageUrl(movie.poster_path)} 
+                    alt={movie.title} 
+                    className='w-full h-96 object-cover' 
+                />
+                <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className={`${isFav ? 'text-red-500' : 'text-white'} bg-black/50 hover:bg-transparent mix-blend-difference  `} 
+                        onClick={handleFavoriteToggle}
+                    >
                         <Heart className={isFav ? 'fill-current' : ''} />
                     </Button>
-                    <Button variant="ghost" size="icon" className={`absolute top-2 right-2 ${ isFav ? 'text-red-500' : 'text-white' } bg-black/50 hover:bg-black/70`} 
-                    onClick={handleWatchlistToggle} >
-                        <Bookmark className={isFav ? 'fill-current' : ''} />
+                    <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className={`${isWatch ? 'text-blue-500' : 'text-white'} bg-black/50 hover:bg-black/70`} 
+                        onClick={handleWatchlistToggle}
+                    >
+                        <Bookmark className={isWatch ? 'fill-current' : ''} />
                     </Button>
                 </div>
             </div>
@@ -51,14 +76,14 @@ export const MovieCard = ({ movie }: {movie: Movie }) => {
                         {movie.release_date?.split('-')[0] || 'N/A'}
                     </span>
                 </div>
-                <div className="flex gap-1 flex-wrap">
+                <div className="flex gap-1 flex-wrap mb-2">
                     {movieGenres.map((genre) => (
                         <Badge key={genre.id} variant="secondary" className="text-xs">
                             {genre.name}
                         </Badge>
                     ))}
                 </div>
-                <p className="text-sm text-muted-foreground mt-2 line-clamp-3">
+                <p className="text-sm text-muted-foreground line-clamp-3">
                     {movie.overview}
                 </p>
             </CardContent>
