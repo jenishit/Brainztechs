@@ -22,7 +22,7 @@ export default function App() {
   } = useMovieStore();
 
   useEffect(() => {
-    const fetchInitialData = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
         const [moviesData, genresData] = await Promise.all([
@@ -38,7 +38,7 @@ export default function App() {
       }
     };
 
-    fetchInitialData();
+    fetchData();
   }, []);
 
   const displayMovies = searchQuery ? searchResults : movies;
