@@ -7,6 +7,7 @@ import {
 import { getImageUrl } from '@/services/api';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { toast } from 'react-toastify';
 
 export const MovieCard = ({ movie }: { movie: Movie }) => {
     const { 
@@ -24,13 +25,25 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
     const isWatch = isWatched(movie.id);
 
     const handleFavoriteToggle = () => {
-        if (isFav) removeFromFavorites(movie.id);
-        else addToFavorites(movie);
+        if (isFav) {
+            toast.error("Removed from favorites");
+            removeFromFavorites(movie.id);
+        }
+        else {
+            toast.success("Added to favorites");
+            addToFavorites(movie);
+        }
     };
 
     const handleWatchlistToggle = () => {
-        if (isWatch) removeFromWatchlist(movie.id);
-        else addToWatchlist(movie);
+        if (isWatch) {
+            toast.error("Removed from watchlist");
+            removeFromWatchlist(movie.id);
+        }
+        else {
+            toast.success("Added to watchlist");
+            addToWatchlist(movie);
+        }
     };
 
     const movieGenres = genres.filter((g) => movie.genre_ids?.includes(g.id)).slice(0, 2);
@@ -50,7 +63,7 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
                     <Button 
                         variant="ghost" 
                         size="icon" 
-                        className={`${isFav ? 'text-red-500' : 'text-white'} bg-black/50 hover:bg-transparent mix-blend-difference  `} 
+                        className={`${isFav ? 'text-red-500' : 'text-white'} bg-black/50 hover:bg-black/70`} 
                         onClick={handleFavoriteToggle}
                     >
                         <Heart className={isFav ? 'fill-current' : ''} />

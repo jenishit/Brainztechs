@@ -37,7 +37,7 @@ export const useMovieStore = create<MovieState>()(
             },
             removeFromWatchlist: (movieId: number) => {
                 set((State) => ({
-                    favorites:  State.watchlist.filter((m) => m.id !== movieId),
+                    watchlist:  State.watchlist.filter((m) => m.id !== movieId),
                 }));
             },
             setMovies: (movies: Movie[]) => set({ movies }),

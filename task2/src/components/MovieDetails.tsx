@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { getImageUrl } from '@/services/api';
+import { toast } from 'react-toastify';
 
 export const MovieDetails = () => {
     const { 
@@ -24,14 +25,26 @@ export const MovieDetails = () => {
     const isWatch = isWatched(selectedMovie.id);
 
     const handleFavoriteToggle = () => {
-        if (isFav) removeFromFavorites(selectedMovie.id);
-        else addToFavorites(selectedMovie);
-    };
-
-    const handleWatchlistToggle = () => {
-        if (isWatch) removeFromWatchlist(selectedMovie.id);
-        else addToWatchlist(selectedMovie);
-    };
+            if (isFav) {
+                toast.error("Removed from favorites");
+                removeFromFavorites(selectedMovie.id);
+            }
+            else {
+                toast.success("Added to favorites");
+                addToFavorites(selectedMovie);
+            }
+        };
+    
+        const handleWatchlistToggle = () => {
+            if (isWatch) {
+                toast.error("Removed from watchlist");
+                removeFromWatchlist(selectedMovie.id);
+            }
+            else {
+                toast.success("Added to watchlist");
+                addToWatchlist(selectedMovie);
+            }
+        };
 
     const movieGenres = genres.filter((g) => selectedMovie.genre_ids?.includes(g.id));
 
