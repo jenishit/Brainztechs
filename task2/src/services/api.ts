@@ -1,13 +1,10 @@
 import axios from "axios";
 
-const API_KEY = 'e5f827b00209f77caa54caff894cb6ef';
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMAGE_URL = 'https://image.tmdb.org/t/p';
-
+const Img_URL = import.meta.env.IMAGE_URL;
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.BASE_URL,
   params: {
-    api_key: API_KEY,
+    api_key: import.meta.env.API_KEY,
   },
 });
 
@@ -40,5 +37,5 @@ export const movieApi = {
 
 export const getImageUrl = (path: string | null, size = 'w500') => {
   if (!path) return 'https://via.placeholder.com/500x750?text=No+Image';
-  return `${IMAGE_URL}/${size}${path}`;
+  return `${Img_URL}/${size}${path}`;
 };

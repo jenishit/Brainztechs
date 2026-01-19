@@ -28,7 +28,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className='flex gap-4 justify-between content-center bg-gray-500 p-2'>
+            <nav className='flex gap-4 justify-between content-center bg-gray-400 p-2'>
                 <h2>BrainzMovieTechs</h2>
                 <div className='flex gap-5 pr-5 justify-center content-center'>
                     <form onSubmit={handleSearch} className="relative w-50 max-w-xl">
@@ -36,9 +36,6 @@ export const Navbar = () => {
                         <Input type="text" placeholder="Search for movies..." value={localQuery}
                             onChange={(e) => setLocalQuery(e.target.value)} className="text-black bg-amber-50 pl-10 pr-4" />
                     </form>
-                    <a href="#">Favorites</a>
-                    <a href="#">Watchlist</a>
-                    <a href="#">User</a>
                 </div>
             </nav>
         </>

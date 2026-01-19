@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import { Heart, Bookmark } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { useMovieStore } from './store/store';
 import {toast } from 'react-toastify';
@@ -104,7 +104,7 @@ export default function App() {
           <TabsContent value="watchlist">
             {watchlist.length === 0 ? (
               <div className="text-center py-20 text-muted-foreground">
-                <Heart className="w-16 h-16 mx-auto mb-4 opacity-20" />
+                <Bookmark className="w-16 h-16 mx-auto mb-4 opacity-20" />
                 <p className="text-lg">No movies in Watchlist yet</p>
                 <p className="text-sm">Start adding movies to your watchlist!</p>
               </div>

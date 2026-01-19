@@ -96,9 +96,6 @@ export const MovieCard = ({ movie }: { movie: Movie }) => {
                         </Badge>
                     ))}
                 </div>
-                <p className="text-sm text-muted-foreground line-clamp-3">
-                    {movie.overview}
-                </p>
             </CardContent>
         </Card>
     );
