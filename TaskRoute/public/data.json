@@ -1,0 +1,141 @@
+{
+  "instructors": [
+    {
+      "instructorId": "inst_101",
+      "name": "John Doe",
+      "email": "john.doe@learnsphere.com",
+      "expertise": ["Web Development", "JavaScript", "React"],
+      "dashboard": {
+        "totalCourses": 2,
+        "totalStudents": 3400,
+        "totalEarnings": 18500,
+        "ratings": 4.6
+      },
+      "coursesCreated": ["course_201", "course_202"]
+    },
+    {
+      "instructorId": "inst_102",
+      "name": "Sarah Smith",
+      "email": "sarah.smith@learnsphere.com",
+      "expertise": ["Data Science", "Python", "Machine Learning"],
+      "dashboard": {
+        "totalCourses": 1,
+        "totalStudents": 2100,
+        "totalEarnings": 14200,
+        "ratings": 4.8
+      },
+      "coursesCreated": ["course_203"]
+    }
+  ],
+
+  "courses": [
+    {
+      "courseId": "course_201",
+      "title": "Complete JavaScript Bootcamp",
+      "category": "Web Development",
+      "level": "Beginner to Advanced",
+      "price": 99.99,
+      "language": "English",
+      "rating": 4.5,
+      "instructorId": "inst_101",
+      "curriculum": [
+        {
+          "sectionId": "sec_1",
+          "title": "JavaScript Basics",
+          "lectures": 12
+        },
+        {
+          "sectionId": "sec_2",
+          "title": "Advanced JavaScript",
+          "lectures": 18
+        }
+      ],
+      "totalDurationHours": 42,
+      "studentsEnrolled": 2500
+    },
+    {
+      "courseId": "course_202",
+      "title": "React Mastery",
+      "category": "Frontend Development",
+      "level": "Intermediate",
+      "price": 79.99,
+      "language": "English",
+      "rating": 4.6,
+      "instructorId": "inst_101",
+      "curriculum": [
+        {
+          "sectionId": "sec_1",
+          "title": "React Fundamentals",
+          "lectures": 10
+        },
+        {
+          "sectionId": "sec_2",
+          "title": "Hooks and State Management",
+          "lectures": 14
+        }
+      ],
+      "totalDurationHours": 30,
+      "studentsEnrolled": 900
+    },
+    {
+      "courseId": "course_203",
+      "title": "Data Science with Python",
+      "category": "Data Science",
+      "level": "Beginner",
+      "price": 89.99,
+      "language": "English",
+      "rating": 4.8,
+      "instructorId": "inst_102",
+      "curriculum": [
+        {
+          "sectionId": "sec_1",
+          "title": "Python for Data Science",
+          "lectures": 15
+        },
+        {
+          "sectionId": "sec_2",
+          "title": "Machine Learning Basics",
+          "lectures": 20
+        }
+      ],
+      "totalDurationHours": 38,
+      "studentsEnrolled": 2100
+    }
+  ],
+
+  "students": [
+    {
+      "studentId": "stu_301",
+      "name": "Alex Johnson",
+      "email": "alex.johnson@gmail.com",
+      "enrolledCourses": [
+        {
+          "courseId": "course_201",
+          "enrolledDate": "2025-01-10",
+          "progressPercentage": 65,
+          "completed": false
+        },
+        {
+          "courseId": "course_203",
+          "enrolledDate": "2025-02-02",
+          "progressPercentage": 100,
+          "completed": true,
+          "certificateIssued": true
+        }
+      ]
+    },
+    {
+      "studentId": "stu_302",
+      "name": "Emily Brown",
+      "email": "emily.brown@gmail.com",
+      "enrolledCourses": [
+        {
+          "courseId": "course_202",
+          "enrolledDate": "2025-03-15",
+          "progressPercentage": 30,
+          "completed": false
+        }
+      ]
+    }
+  ]
+}

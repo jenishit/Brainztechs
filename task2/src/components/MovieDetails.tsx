@@ -57,7 +57,7 @@ export const MovieDetails = () => {
                         alt={selectedMovie.title} 
                         className='w-full h-64 object-cover' 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
                     
                     <DialogHeader className="absolute bottom-4 left-6 right-6 text-white">
                         <DialogTitle className="text-3xl font-bold">{selectedMovie.title}</DialogTitle>
