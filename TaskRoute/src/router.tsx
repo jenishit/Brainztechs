@@ -11,6 +11,8 @@ import LoginPage from './pages/LoginPage';
 import About from './pages/About';
 import CourseDetails from './pages/Courses/CourseDetails';
 import Signup from './pages/Signup';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import Unauthorized from './pages/Unauthorized';
 
 export const router = createBrowserRouter([
     {
@@ -37,11 +39,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: "my-courses",
-                element: <MyCourses />,
+                element: (
+                    <ProtectedRoute allowedRoles={['student']}>
+                        <MyCourses />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: "instructor",
-                element: <InstructorDashboard />,
+                element: (
+                    <ProtectedRoute allowedRoles={['instructor']} >
+                        <InstructorDashboard />
+                    </ProtectedRoute>
+                ),
             },
         ],
     },
@@ -52,5 +62,9 @@ export const router = createBrowserRouter([
     {
         path: "/signup",
         element: <Signup />,
+    },
+    {
+        path: "/unauthorized",
+        element: <Unauthorized />,
     },
 ]);

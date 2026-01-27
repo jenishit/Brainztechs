@@ -1,23 +1,58 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Input } from '@/components/ui/input';
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label";
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuthStore } from "@/store/authStore";
+import { useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
 
-type Formfields = {
-  email: string;
-  password: string;
-};
+const schema = z.object({
+  email: z.email(),
+  password: z.string().min(8),
+})
+
+type Formfields = z.infer<typeof schema>; 
 
 export default function LoginPage() {
-  const { register, handleSubmit, setError, formState: {errors, isSubmitting} } = useForm<Formfields>();
+  const { register, handleSubmit, setError, formState: {errors, isSubmitting} } = useForm<Formfields>({
+    defaultValues: {
+      email: "test@example.com",
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const login = useAuthStore(state => state.login);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname;
 
   const onSubmit: SubmitHandler<Formfields> = async (data) => {
     try{
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log(data);
+      const success = login(data.email, data.password);
+
+      if (success) {
+        const user = useAuthStore.getState().currentUser;
+        toast.success("Logged in successfully");
+        if (from && from !== '/login') {
+            navigate(from, { replace: true });
+        } else if (user?.role === 'instructor') {
+            navigate('/instructor', { replace: true });
+        } else if (user?.role === 'student') {
+            navigate('/my-courses', { replace: true });
+        } else {
+            navigate('/', { replace: true });
+        }
+      }
+      else {
+        toast.error("Error logging in");
+      }
     } catch(error) {
       setError("root", {
-        message: "This email is already taken"
+        message: {error}.toString()
       });
     }
   };
